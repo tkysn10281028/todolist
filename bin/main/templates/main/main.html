@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<a href="/logout">I want to Log Out.</a>
+	<h1>Main Page</h1>
+	<h2 th:text = "${username}"></h2>
+	<form action="/tweet" method="post">
+	<input type="text" name="tweet">
+	<input type="submit" value="POST TWEET!">
+	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+	</form>
+	
+	<table border="1">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>CREATEDATE</th>
+							<th>TWEET</th>
+							<th>WHENTODO</th>
+							
+							
+							
+							<th:block th:if="${isEdit}">
+								<th>UPDATE</th>
+							</th:block>
+						
+							<th:block th:if="${isEdit}">
+								<th>DELETE</th>
+							</th:block>
+						
+							<th:block th:if="${isEdit}">
+								<th>UPDATEDATE</th>
+							</th:block>
+						
+							
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-th-each="form : ${tweetList}">
+						<form method="get" action ="/edit">
+						<input type="hidden" name="realtweetId" data-th-value="${form.realtweetId}">
+						<td th:text="${form.id}"></td><input type="hidden" name="id" data-th-value="${form.id}">
+						<td th:text="${form.date}"></td><input type="hidden" name="date" data-th-value="${form.date}">
+						<td th:text="${form.tweet}"></td><input type="hidden" name="tweet" data-th-value="${form.tweet}">
+						<td th:text="${form.whentodo}"></td><input type="hidden" name="whentodo" data-th-value="${form.whentodo}">
+						<th:block th:if="${isEdit}">
+							<td>
+								<input type="text" name="updatetweet" th:value="${form.tweet}"><br>
+								<input type="submit" value="update this tweet!" name="update"><br>
+							</td>
+						</th:block>
+						<th:block th:if="${isEdit}">
+							<td>
+								<input type="submit" value="delete this tweet!" name="delete"><br>
+							</td>
+							<td>
+							<input type="date" id="start" name="trip-start" value="2021-12-20" min="2000-01-01" max="2099-12-31"><br>
+							<input type="submit" value="update date!" name="updatedate"><br>
+							</td>
+						</th:block>
+						
+						
+						
+						
+						
+						<td><input type="submit" value="edit"></td>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+						</form>
+						</tr>
+					</tbody>
+				</table>
+
+
+
+	
+	
+	
+	
+</body>
+</html>
