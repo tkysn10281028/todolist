@@ -1,5 +1,7 @@
 package com.example.demo.advice;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
@@ -10,6 +12,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.constants.ActivateCode;
+import com.example.demo.model.Usertable;
 import com.example.demo.repository.UserRepository;
 
 @Aspect
@@ -33,22 +37,22 @@ public class ValidationAdvice {
 	
 //テストユーザー追加用メソッド　DB内のユーザーが存在しない場合に使用する
 	
-//	@Before("execution(* *..*LoginController.index(..))")
-//	public void insertuser() {
-//		
-//		Optional<User> optuser =  userrepository.findByEmailaddress("test@test.com");
-//		
-//		if(optuser.isEmpty()) {
-//		
-//		User user = new User();
-//		user.setUsername("username");
-//		user.setPassword(encoder.encode("Pleasure1"));
-//		user.setEmailaddress("test@test.com");
-//		user.setActivateCode(ActivateCode.createActivateCode());
-//		user.setRole("ADMIN");
-//		userrepository.save(user);
-//		}
-//		
-//	}
+	@Before("execution(* *..*LoginController.index(..))")
+	public void insertuser() {
+		
+		Optional<Usertable> optuser =  userrepository.findByEmailaddress("test@test.com");
+		
+		if(optuser.isEmpty()) {
+		
+		Usertable user = new Usertable();
+		user.setUsername("username");
+		user.setPassword(encoder.encode("Pleasure1"));
+		user.setEmailaddress("test@test.com");
+		user.setActivateCode(ActivateCode.createActivateCode());
+		user.setRole("ADMIN");
+		userrepository.save(user);
+		}
+		
+	}
 	
 }

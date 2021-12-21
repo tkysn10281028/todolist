@@ -29,7 +29,7 @@ public class TweetUserService {
 	List<TweetForm> tweetforms = new ArrayList<TweetForm>();
 	
 	for(int i = 0;i < tweets.size();i++) {
-		if(user.getEmailaddress().equals(tweets.get(i).getUser().getEmailaddress())){
+		if(user.getEmailaddress().equals(tweets.get(i).getUsertable().getEmailaddress())){
 			TweetForm tweetform = new TweetForm();
 			tweetform.setRealtweetId(tweets.get(i).getTweetid());
 			tweetform.setDate(tweets.get(i).getCreatedate());
@@ -49,11 +49,12 @@ public class TweetUserService {
 	}
 	
 	public int tweetRegister(TweetForm tweetForm) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String nowstr = sdf.format(new Date());		
 		
+		
 		Tweet tweet = new Tweet();
-		tweet.setUser(tweetForm.getUser());
+		tweet.setUsertable(tweetForm.getUser());
 		tweet.setCreatedate(nowstr);
 		tweet.setTweet(tweetForm.getTweet());
 		tweet.setTweetdisableflag(false);
@@ -65,10 +66,12 @@ public class TweetUserService {
 	
 		Tweet tweet = new Tweet();
 		tweet.setTweetid(Integer.parseInt(map.get("realtweetId")));
-		tweet.setUser(tweetForm.getUser());
+		tweet.setUsertable(tweetForm.getUser());
 		tweet.setCreatedate(map.get("date"));
 		tweet.setTweet(map.get("updatetweet"));
 		tweet.setTweetdisableflag(false);
+		tweet.setWhentodone(map.get("whentodo"));
+
 		tweetrepository.save(tweet);
 		
 	}
@@ -86,7 +89,7 @@ public void updateDate(TweetForm tweetForm,Map<String, String> map) {
 
 	Tweet tweet = new Tweet();
 	tweet.setTweetid(Integer.parseInt(map.get("realtweetId")));
-	tweet.setUser(tweetForm.getUser());
+	tweet.setUsertable(tweetForm.getUser());
 	tweet.setCreatedate(map.get("date"));
 	tweet.setTweet(map.get("updatetweet"));
 	tweet.setTweetdisableflag(false);

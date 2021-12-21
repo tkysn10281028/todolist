@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.constants.ActivateCode;
 import com.example.demo.form.SignUpForm;
 import com.example.demo.service.SignUpUserService;
+import com.example.demo.service.UserService;
 
 @Controller
 public class SignUpController {
@@ -24,6 +25,10 @@ public class SignUpController {
 	
 	@Autowired
 	SignUpUserService signupuserservice;
+	
+	@Autowired
+	UserService userservice;
+	
 	
 	
 	
@@ -37,6 +42,12 @@ public class SignUpController {
 		if(bindingresult.hasErrors()) {
 			return	"signup/signup";
 		}
+		if(userservice.findByEmailAddress(signUpForm.getEmailaddress()) != null) {
+			model.addAttribute("message", "SIGNUP ERROR! EMAIL ADDRESS ALREADY EXISTS!");
+			return "index";
+		}
+		
+		
 		signUpForm.setActivatecode(ActivateCode.createActivateCode());
 		signupuserservice.sendmail(signUpForm);
 		model.addAttribute("signUpForm", signUpForm);
@@ -65,11 +76,5 @@ public class SignUpController {
 	public String activateGet(@ModelAttribute SignUpForm signUpForm) {		
 		return "signup/signup";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
