@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.form.TweetForm;
-import com.example.demo.model.User;
+import com.example.demo.model.Usertable;
 import com.example.demo.service.TweetUserService;
 import com.example.demo.service.UserService;
 
@@ -37,7 +37,7 @@ public class TweetController {
 	
 	@RequestMapping(value = "/tweet",method = RequestMethod.GET)
 	public String tweetGet(@ModelAttribute TweetForm tweetForm,Model model,Authentication auth) {
-	User user = userservice.findByEmailAddress(auth.getName());	
+	Usertable user = userservice.findByEmailAddress(auth.getName());	
 	
 	model.addAttribute("username", user.getUsername());
 	
@@ -53,7 +53,7 @@ public class TweetController {
 		
 		
 		
-		User user = userservice.findByEmailAddress(auth.getName());
+		Usertable user = userservice.findByEmailAddress(auth.getName());
 		tweetForm.setUser(user);
 		
 		int tweetid = tweetuserservice.tweetRegister(tweetForm);
@@ -65,7 +65,7 @@ public class TweetController {
 
 	@RequestMapping(value = "/edit",method = RequestMethod.GET)
 	public String editPost(@ModelAttribute TweetForm tweetForm,Model model,Authentication auth,@RequestParam Map<String, String> map){
-		User user = userservice.findByEmailAddress(auth.getName());
+		Usertable user = userservice.findByEmailAddress(auth.getName());
 		tweetForm.setUser(user);
 		
 		Optional<String> delete =  Optional.ofNullable(map.get("delete"));

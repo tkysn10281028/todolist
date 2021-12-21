@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class User implements Serializable{
+public class Usertable implements Serializable{
 	
 	
 	@Id
@@ -43,7 +43,7 @@ public class User implements Serializable{
 	@Column(name = "activate_code")
 	private String activateCode;
 	
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usertable",cascade = CascadeType.ALL)
 	private List<Tweet> tweets;
 	
 	

@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.form.SignUpForm;
-import com.example.demo.model.User;
+import com.example.demo.model.Usertable;
 import com.example.demo.repository.UserRepository;
 
 @Service
@@ -47,7 +47,7 @@ public class SignUpUserService {
 	}
 	
 	public void signup(SignUpForm signUpForm) {
-		User user = new User();
+		Usertable user = new Usertable();
 		user.setUsername(signUpForm.getUsername());
 		user.setEmailaddress(signUpForm.getEmailaddress());
 		user.setPassword(encoder.encode(signUpForm.getPassword()));

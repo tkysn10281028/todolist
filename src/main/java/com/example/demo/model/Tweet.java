@@ -25,7 +25,7 @@ public class Tweet implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "email_address")
-	private User user;
+	private Usertable user;
 	
 	
 	@Column(name = "create_date")

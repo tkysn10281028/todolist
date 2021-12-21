@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.form.TweetForm;
 import com.example.demo.model.Tweet;
-import com.example.demo.model.User;
+import com.example.demo.model.Usertable;
 import com.example.demo.repository.TweetRepository;
 
 @Service
@@ -23,7 +23,7 @@ public class TweetUserService {
 	
 	
 	
-	public List<TweetForm> showTweetList(User user){
+	public List<TweetForm> showTweetList(Usertable user){
 	List<Tweet>	tweets = tweetrepository.findAll();
 	
 	List<TweetForm> tweetforms = new ArrayList<TweetForm>();

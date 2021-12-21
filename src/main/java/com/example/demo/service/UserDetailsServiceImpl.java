@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.User;
+import com.example.demo.model.Usertable;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String emailaddress) throws UsernameNotFoundException {
 
-		User loginuser = userservice.findByEmailAddress(emailaddress);
+		Usertable loginuser = userservice.findByEmailAddress(emailaddress);
 		
 		if(loginuser == null) {
 			throw new BadCredentialsException("Your ID or Password Is Not Correct.");
