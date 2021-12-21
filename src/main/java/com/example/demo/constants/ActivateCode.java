@@ -2,6 +2,8 @@ package com.example.demo.constants;
 
 import java.util.Random;
 
+
+//activatecode追加用メソッド
 public class ActivateCode {
 	 public static String createActivateCode(){
 	        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

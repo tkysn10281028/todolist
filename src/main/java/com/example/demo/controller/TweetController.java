@@ -45,15 +45,17 @@ public class TweetController {
 		return "main/main";
 	}
 
+///tweetのpost要求を受け取る。
 	@RequestMapping(value = "/tweet", method = RequestMethod.POST)
 	public String tweetPost(@ModelAttribute TweetForm tweetForm, Model model, Authentication auth) throws IOException {
 
 		Usertable user = userservice.findByEmailAddress(auth.getName());
 		tweetForm.setUser(user);
 
+//tweetuserserviceのtweetregisterサービス読んで呟きの登録処理
 		int tweetid = tweetuserservice.tweetRegister(tweetForm);
 		model.addAttribute("tweet_id", tweetid);
-
+// /tweetのget要求を飛ばして再度リストを表示させる（リダイレクト）
 		return tweetGet(tweetForm, model, auth);
 
 	}
@@ -61,7 +63,6 @@ public class TweetController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String editPost(@ModelAttribute TweetForm tweetForm, Model model, Authentication auth,
 			@RequestParam Map<String, String> map) {
-		System.out.println(map);
 
 		Usertable user = userservice.findByEmailAddress(auth.getName());
 		tweetForm.setUser(user);
@@ -69,7 +70,8 @@ public class TweetController {
 		Optional<String> delete = Optional.ofNullable(map.get("delete"));
 		Optional<String> update = Optional.ofNullable(map.get("update"));
 		Optional<String> updatedate = Optional.ofNullable(map.get("updatedate"));
-
+//@requestparamをmap<string,string>で受け取ることで全パラメータ取得。
+//このmapオブジェクトでname属性に入っている値を元に分岐を制御する
 //空の場合はeditが押された、値が入っている場合はdeleteが押された
 		if (delete.isPresent()) {
 

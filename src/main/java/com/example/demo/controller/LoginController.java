@@ -6,17 +6,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class LoginController {
-	
-	@RequestMapping(value = "/",method = RequestMethod.GET)
+// "/"のget要求を受け取って、index.htmlのビューを返す。	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() {
 
 		return "index";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -25,34 +25,33 @@ public class ValidationAdvice {
 	PasswordEncoder encoder;
 	@Autowired
 	UserRepository userrepository;
-	
-	
+
+//signupcontroller実行時に前画面のバリデーション情報のクリア
 	@Before("execution(* *..*SignUpController.signUpGet(..))")
-	    public void testUserTurnfalse(JoinPoint joinpoint){
+	public void testUserTurnfalse(JoinPoint joinpoint) {
 
+		session.setAttribute("SPRING_SECURITY_LAST_EXCEPTION", new BadCredentialsException(""));
 
-		session.setAttribute("SPRING_SECURITY_LAST_EXCEPTION",new BadCredentialsException(""));
-	 
 	}
-	
+
 //テストユーザー追加用メソッド　DB内のユーザーが存在しない場合に使用する
-	
+
 	@Before("execution(* *..*LoginController.index(..))")
 	public void insertuser() {
-		
-		Optional<Usertable> optuser =  userrepository.findByEmailaddress("test@test.com");
-		
-		if(optuser.isEmpty()) {
-		
-		Usertable user = new Usertable();
-		user.setUsername("username");
-		user.setPassword(encoder.encode("Pleasure1"));
-		user.setEmailaddress("test@test.com");
-		user.setActivateCode(ActivateCode.createActivateCode());
-		user.setRole("ADMIN");
-		userrepository.save(user);
+
+		Optional<Usertable> optuser = userrepository.findByEmailaddress("test@test.com");
+
+		if (optuser.isEmpty()) {
+
+			Usertable user = new Usertable();
+			user.setUsername("username");
+			user.setPassword(encoder.encode("Pleasure1"));
+			user.setEmailaddress("test@test.com");
+			user.setActivateCode(ActivateCode.createActivateCode());
+			user.setRole("ADMIN");
+			userrepository.save(user);
 		}
-		
+
 	}
-	
+
 }

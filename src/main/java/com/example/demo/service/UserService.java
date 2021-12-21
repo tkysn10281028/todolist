@@ -12,10 +12,10 @@ import com.example.demo.repository.UserRepository;
 public class UserService {
 	@Autowired
 	UserRepository userrepository;
-	
+
 	public Usertable findByEmailAddress(String emailaddress) {
-		Optional<Usertable> optuser =  userrepository.findByEmailaddress(emailaddress);
-		if(optuser.isEmpty()) {
+		Optional<Usertable> optuser = userrepository.findByEmailaddress(emailaddress);
+		if (optuser.isEmpty()) {
 			return null;
 		}
 		return optuser.get();

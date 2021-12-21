@@ -12,6 +12,5 @@ public class TweetForm {
 	private Usertable user;
 	private int realtweetId;
 	private String whentodo;
-	
-	
+
 }
